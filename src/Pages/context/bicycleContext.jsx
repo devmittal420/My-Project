@@ -1,16 +1,28 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
-export const searchContext = createContext();
-export const SearchProvider = searchContext.Provider;
+export const bicycleContext = createContext(null);
+export const SearchProvider = bicycleContext.Provider;
 
-const SearchContext = ({ children }) => {
-  const [searchInput, setSearchInput] = useState("");
+const BicycleContext = ({ children }) => {
+  const [bicycle, setBicycle] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   return (
-    <SearchProvider value={{ searchInput, setSearchInput }}>
+    <SearchProvider
+      value={{
+        bicycle,
+        setBicycle,
+        searchText,
+        setSearchText,
+      }}
+    >
       {children}
     </SearchProvider>
   );
 };
 
-export default SearchContext;
+export const bicycleTheme = () => {
+  return useContext(bicycleContext);
+};
+
+export default BicycleContext;

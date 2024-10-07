@@ -5,24 +5,29 @@
 
 import { useEffect, useState, useLayoutEffect } from "react";
 import Header from "./../../components/Headers/header";
-import BicycleData from "./../../components/API/api";
-import { useContext } from "react";
-import { searchContext } from "../context/bicycleContext";
+import BicycleData from "./../../components/API/bicycleApi";
+import { bicycleTheme } from "../context/bicycleContext";
+import { searchTheme } from "/src/Pages/context/searchContext";
 import "/src/index.css";
+import Fuse from "fuse.js";
 
 const Bicycle = () => {
-  const [bicycle, setBicycle] = useState([]);
-  const { searchInput } = useContext(searchContext);
+  const { bicycle, setBicycle } = bicycleTheme();
+  const { searchInput, setSearchInput } = searchTheme();
 
   useLayoutEffect(() => {
     setBicycle(BicycleData);
-  }, []);
+  }, [setBicycle]);
 
-  const searchBicycles = bicycle.filter(
-    (cycle) =>
-      cycle.description.toLowerCase().includes(searchInput.toLowerCase()) ||
-      cycle.name.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  const fuseSearch = {
+    keys: ["name", "description"],
+  };
+
+  const fuse = new Fuse( bicycle, fuseSearch);
+
+  const searchBicycles = searchInput
+    ? fuse.search(searchInput).map((result) => result.item)
+    : bicycle;
 
   return (
     <div className="p-20 mt-4">

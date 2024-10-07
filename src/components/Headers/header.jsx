@@ -1,19 +1,27 @@
-import React, { useContext } from "react";
-import { searchContext } from "./../../Pages/context/bicycleContext";
 import { Link } from "react-router-dom";
+import { bicycleTheme } from "/src/Pages/context/bicycleContext";
+import { searchTheme } from '../../Pages/context/searchContext';
 
 export default function Header() {
-  const { setSearchInput } = useContext(searchContext);
+  const { searchText, setSearchText } = bicycleTheme();
+  const { searchInput, setSearchInput } = searchTheme();
 
+  
   const onHandleSearch = (e) => {
     const { value } = e.target;
-    setSearchInput(value);
+    setSearchText(value);
+    if (value.length === 0) {
+      setSearchInput("");
+    }
   };
 
+  const onSearchClick = () => {
+    setSearchInput(searchText);
+  };
 
   return (
     <>
-      <div className="fixed top-0 left-0 h-20 right-0 bg-blue-300">
+      <div className="fixed top-0 left-0 h-20 right-0 bg-blue-400 z-10 ">
         {/* Amazon Logo */}
         <div className="flex items-center justify-between">
           <img
@@ -23,17 +31,23 @@ export default function Header() {
           />
 
           {/* Search bar */}
-          <div className="flex items-center ">
+          <div className="flex items-center relative">
             <input
               type="search"
               placeholder="Search here"
-              className="bg-white border border-blue-200 rounded-l-xl w-96 h-10 px-4 cursor-pointer"
+              className="bg-white border border-transparent rounded-l-xl w-128 h-10 px-4 cursor-pointer"
               onChange={onHandleSearch}
+              value={searchText}
             />
-            <button className="bg-yellow-100 h-10 px-4 rounded-r-xl p-1 mr-5">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
-                <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
-              </svg>
+            <button
+              onClick={onSearchClick}
+              className="bg-yellow-400 h-10 px-3 rounded-r-xl"
+            >
+              <img
+                src="https://img.icons8.com/ios-filled/50/ffffff/search.png"
+                alt="search-image"
+                className="h-5 w-5"
+              />
             </button>
           </div>
 
