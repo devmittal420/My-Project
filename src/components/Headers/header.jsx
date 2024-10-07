@@ -22,12 +22,12 @@ export default function Header() {
   return (
     <>
       <div className="fixed top-0 left-0 h-20 right-0 bg-blue-400 z-10 ">
-        {/* Amazon Logo */}
-        <div className="flex items-center justify-between">
+        {/* E-commerce Logo */}
+        <div className="flex items-center justify-between mt-3">
           <img
-            src="https://1000logos.net/wp-content/uploads/2016/10/Amazon-Logo.png"
+            src="https://icon2.cleanpng.com/20190304/hpe/kisspng-shopping-cart-shopping-bag-online-shopping-paper-1713903155861.webp"
             alt="Amazon Logo"
-            className="h-20 ml-4 -mr-5"
+            className="h-14 ml-3 bg-transparent border rounded-full"
           />
 
           {/* Search bar */}
