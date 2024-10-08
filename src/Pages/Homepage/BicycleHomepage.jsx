@@ -17,13 +17,16 @@ const Bicycle = () => {
 
   useLayoutEffect(() => {
     setBicycle(BicycleData);
-  }, [setBicycle]);
+    console.log("Bicycle homepage re-render2");
+  }, []);
+
+  console.log("Bicycle homepage re-render");
 
   const fuseSearch = {
     keys: ["name", "description"],
   };
 
-  const fuse = new Fuse( bicycle, fuseSearch);
+  const fuse = new Fuse(bicycle, fuseSearch);
 
   const searchBicycles = searchInput
     ? fuse.search(searchInput).map((result) => result.item)

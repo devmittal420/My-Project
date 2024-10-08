@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { bicycleTheme } from "/src/Pages/context/bicycleContext";
-import { searchTheme } from '../../Pages/context/searchContext';
+import { searchTheme } from "../../Pages/context/searchContext";
+import { memo } from "react";
 
-export default function Header() {
+const Header = () => {
   const { searchText, setSearchText } = bicycleTheme();
   const { searchInput, setSearchInput } = searchTheme();
 
-  
+  console.log("Header Re-render");
+
   const onHandleSearch = (e) => {
     const { value } = e.target;
     setSearchText(value);
@@ -24,11 +26,13 @@ export default function Header() {
       <div className="fixed top-0 left-0 h-20 right-0 bg-blue-400 z-10 ">
         {/* E-commerce Logo */}
         <div className="flex items-center justify-between mt-3">
-          <img
-            src="https://icon2.cleanpng.com/20190304/hpe/kisspng-shopping-cart-shopping-bag-online-shopping-paper-1713903155861.webp"
-            alt="Amazon Logo"
-            className="h-14 ml-3 bg-transparent border rounded-full"
-          />
+          <Link to="/">
+            <img
+              src="https://icon2.cleanpng.com/20190304/hpe/kisspng-shopping-cart-shopping-bag-online-shopping-paper-1713903155861.webp"
+              alt="Amazon Logo"
+              className="h-14 ml-3 bg-transparent border rounded-full"
+            />
+          </Link>
 
           {/* Search bar */}
           <div className="flex items-center relative">
@@ -65,4 +69,6 @@ export default function Header() {
       </div>
     </>
   );
-}
+};
+
+export default memo(Header);
